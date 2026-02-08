@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -12,42 +13,60 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className="max-sm:scale-[0.75] max-sm:origin-center max-sm:p-6">
+    <div className="relative max-sm:scale-[0.75] max-sm:origin-center max-sm:p-6">
       <div className="flex flex-col items-center justify-center h-[71dvh] md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-        <div className="absolute inset-0 flex items-center justify-center lg:hidden">
-          <div className="w-[350] h-[350] border border-dotted border-[#A0A4AB] rotate-45 absolute top-1/2 left-1/2 -translate-x-[52%] -translate-y-1/2"></div>
+
+        {/* ================= MOBILE BACKGROUND DIAMONDS (<1020px) ================= */}
+        <div className="absolute inset-0 flex items-center justify-center min-[1020px]:hidden pointer-events-none">
+          <div className="w-[350] h-[350] border border-dotted border-[#A0A4AB] rotate-45 absolute" />
+          <div className="w-[420] h-[420] border border-dotted border-[#A0A4AB] rotate-45 absolute" />
+          
         </div>
-        <div className="absolute inset-0 flex items-center justify-center lg:hidden">
-          <div className="w-[420] h-[420] border border-dotted border-[#A0A4AB] rotate-45 absolute top-1/2 left-1/2 -translate-x-[52%] -translate-y-1/2"></div>
-        </div>
+
+        {/* ================= MAIN HEADING ================= */}
         <div id="main-heading" className="relative z-10 text-center">
           <h1
-            className="text-[60px] text-[#1A1B1C] lg:text-[100px] font-inter font-normal tracking-tighter leading-none"
+            className="text-[60px] min-[1020px]:text-[100px] text-[#1A1B1C] font-inter font-normal tracking-tighter leading-none"
             style={{
               opacity: fadeIn ? 1 : 0,
               transform:
                 hover === "discover"
                   ? "translateX(28rem)"
                   : hover === "take"
-                    ? "translateX(-28rem)"
-                    : "translateX(0)",
-              transition: "opacity 7s ease-in-out, transform 2s ease-in-out",
+                  ? "translateX(-28rem)"
+                  : "translateX(0)",
+              transition: "opacity 7s ease-in-out, transform 2.5s ease-in-out",
             }}
           >
             Sophisticated
             <br />
-            <span className="block text-[#1A1B1C]">skincare</span>
+            <span className="block">skincare</span>
           </h1>
         </div>
-        <p className="z-10 block lg:hidden w-[30ch] mt-4 text-[16px] font-semibold text-center text-muted-foreground text-[#1a1b1c83]">
-          {" "}
+
+        {/* ================= MOBILE DESCRIPTION ================= */}
+        <p className="z-10 block min-[1020px]:hidden w-[30ch] mt-4 text-[16px] font-semibold text-center text-[#1a1b1c83]">
           Skinstric developed an A.I. that creates a highly-personalized routine
           tailored to what your skin needs.
         </p>
-        <div className="z-10 mt-4 lg:hidden">
-          <Link href="/testing"></Link>
+
+        {/* ================= MOBILE CTA ================= */}
+        <div className="z-10 mt-6 min-[1020px]:hidden">
+          <Link href="/testing">
+            <button className="group flex items-center justify-center gap-4">
+              <span className="font-extrabold text-[12px] text-[#1A1B1C] uppercase tracking-wide">
+                Enter Experience
+              </span>
+              <div className="relative flex items-center justify-center w-[30] h-[30]">
+                <div className="absolute inset-0 border border-solid border-[#1A1B1C] rotate-45 transition-transform duration-300 group-hover:scale-110" />
+                <span className="relative text-[10px]">▶</span>
+              </div>
+            </button>
+          </Link>
         </div>
-        <div className="hidden lg:block fixed bottom-[calc(-7vh)] left-[calc(-20vw)] xl:left-[calc(-27vw)] 2xl:left-[calc(-31vw)] [@media(width>=1920px)]:left-[calc(-33vw)] font-normal text-sm text-[#1A1B1C] space-y-3 uppercase">
+
+        {/* ================= DESKTOP DESCRIPTION ================= */}
+        <div className="hidden min-[1020px]:block fixed bottom-[calc(-7vh)] left-[calc(-20vw)] xl:left-[calc(-27vw)] 2xl:left-[calc(-31vw)] [@media(width>=1920px)]:left-[calc(-33vw)] font-normal text-sm text-[#1A1B1C] space-y-3 uppercase">
           <p>
             Skinstric developed an A.I. that creates a
             <br />
@@ -56,48 +75,53 @@ export default function Landing() {
             what your skin needs.
           </p>
         </div>
+
+        {/* ================= LEFT DESKTOP SECTION ================= */}
         <div
-          id="left-section"
-          className={`hidden lg:block fixed left-[calc(-53vw)] xl:left-[calc(-50vw)] top-1/2 -translate-y-1/2 w-[500] h-[500] transition-opacity duration-500 ${hover === "take" ? "opacity-0" : "opacity-100"}`}
+          className={`hidden min-[1020]:block fixed left-[calc(-53vw)] xl:left-[calc(-50vw)] top-1/2 -translate-y-1/2 w-[500] h-[500] transition-opacity duration-500 ${
+            hover === "take" ? "opacity-0" : "opacity-100"
+          }`}
         >
           <div className="relative w-full h-full">
-            <div className="w-full h-full border border-dotted border-[#A0A4AB] rotate-45 fixed inset-0"></div>
+            <div className="w-full h-full border border-dotted border-[#A0A4AB] rotate-45 fixed inset-0" />
             <button
-              id="discover-button"
               onMouseEnter={() => setHover("discover")}
               onMouseLeave={() => setHover(null)}
-              className="group inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-sm font-normal text-[#1A1B1C] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer disabled:opacity-50 h-9 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/5 xl:translate-x-1/6 [@media(width>=1920px)]:translate-x-1/20 px-3 py-1"
+              className="group inline-flex items-center gap-4 text-sm font-normal text-[#1A1B1C] absolute top-1/2 right-0 -translate-y-1/2 px-3 py-1"
             >
               <div
-                className={`w-[30] h-[30] border border-solid border-black rotate-45 cursor-pointer group-hover:scale-110 duration-300 transition-opacity ${hover === "take" ? "opacity-0" : "opacity-100"}`}
-              ></div>
-              <span className="absolute left-[18] top-[8] scale-[0.9] rotate-180 group-hover:scale-105 duration-300">
-                ▶
-              </span>
+                className={`w-[30] h-[30] border border-black rotate-45 transition-opacity ${
+                  hover === "take" ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span className="absolute left-[18] top-[8] rotate-180">▶</span>
               <span>DISCOVER A.I.</span>
             </button>
           </div>
         </div>
+
+        {/* ================= RIGHT DESKTOP SECTION ================= */}
         <div
-          id="right-section"
-          className={`hidden lg:block fixed right-[calc(-53vw)] top-1/2 -translate-y-1/2 w-[500] h-[500] transition-opacity duration-500 ${hover === "discover" ? "opacity-0" : "opacity-100"}`}
+          className={`hidden min-[1020]:block fixed right-[calc(-53vw)] top-1/2 -translate-y-1/2 w-[500] h-[500] transition-opacity duration-500 ${
+            hover === "discover" ? "opacity-0" : "opacity-100"
+          }`}
         >
           <div className="relative w-full h-full">
-            <div className="w-full h-full border border-dotted border-[#A0A4AB] rotate-45 absolute inset-0"></div>
+            <div className="w-full h-full border border-dotted border-[#A0A4AB] rotate-45 absolute inset-0" />
+
             <Link href="/testing">
               <button
-                id="take-test-button"
                 onMouseEnter={() => setHover("take")}
                 onMouseLeave={() => setHover(null)}
-                className="group inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-sm font-normal text-[#1A1B1C] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer disabled:opacity-50 h-9 absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/5 xl:-translate-x-1/6 [@media(width>=1920px)]:-translate-x-1/20 px-3 py-1"
+                className="group inline-flex items-center gap-4 text-sm font-normal text-[#1A1B1C] absolute top-1/2 left-0 -translate-y-1/2 px-3 py-1"
               >
                 TAKE TEST
                 <div
-                  className={`w-[30] h-[30] border border-solid border-black rotate-45 group-hover:scale-110 duration-300 transition-opacity ${hover === "discover" ? "opacity-0" : "opacity-100"}`}
-                ></div>
-                <span className="absolute left-[113] top-[9] scale-[0.9] cursor-pointer group-hover:scale-105 duration-300">
-                  ▶
-                </span>
+                  className={`w-[30] h-[30] border border-black rotate-45 transition-opacity ${
+                    hover === "discover" ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+                <span className="absolute left-[113] top-[9]">▶</span>
               </button>
             </Link>
           </div>
